@@ -22,8 +22,9 @@ During this lab, participants will gain practical experience in integrating Reti
 <h2>Program walk-through:</h2>
 
 First, We need to download the source code of the project from our git repository: <br/>
-- git clone https://gitlab.practical-devsecops.training/pdso/django.nv webapp<br/>
- 
+```
+git clone https://gitlab.practical-devsecops.training/pdso/django.nv webapp
+``` 
 <p align="center">
 <img src="https://i.imgur.com/M5s7Gll.png" height="80%" width="80%" alt="Disk Sanitization Step"/>
 </p>
@@ -32,8 +33,9 @@ First, We need to download the source code of the project from our git repositor
 <br />
 
 Lets cd into the application code so we can scan the app: <br/>
-- cd webapp<br/>
- 
+```
+cd webapp
+``` 
 <p align="center">
 <img src="https://i.imgur.com/oNW8Eta.png" height="80%" width="80%" alt="Disk Sanitization Step"/>
 </p>
@@ -42,8 +44,12 @@ Lets cd into the application code so we can scan the app: <br/>
 <br />
 
 First, we need to install Node JS and NPM: <br/>
-- curl -sL https://deb.nodesource.com/setup_16.x | bash -
-- apt install nodejs -y<br/>
+```
+curl -sL https://deb.nodesource.com/setup_16.x | bash -
+```
+```
+apt install nodejs -y
+```
  
 <p align="center">
 <img src="https://i.imgur.com/VDZKjNi.png" height="80%" width="80%" alt="Disk Sanitization Step"/>
@@ -54,8 +60,9 @@ First, we need to install Node JS and NPM: <br/>
 <br />
 
 Then we can install the RetireJS tool on the system to find the insecure Javascript libraries: <br/>
-- npm install -g retire@3.2.3
-<br/>
+```
+npm install -g retire@3.2.3
+```
  
 <p align="center">
 <img src="https://i.imgur.com/gKsCZJ1.png" height="80%" width="80%" alt="Disk Sanitization Step"/>
@@ -65,8 +72,9 @@ Then we can install the RetireJS tool on the system to find the insecure Javascr
 <br />
 
 Let’s explore what options retirejs gives us: <br/>
-- retire --help<br/>
- 
+```
+retire --help
+``` 
 <p align="center">
 <img src="https://i.imgur.com/ywTqgxA.png" height="80%" width="80%" alt="Disk Sanitization Step"/>
 </p>
@@ -75,8 +83,9 @@ Let’s explore what options retirejs gives us: <br/>
 <br />
 
 Front end dependencies managed via npm are stored in the package.json file. Let’s explore the contents of the package.json file: <br/>
-- cat package.json<br/>
- 
+```
+cat package.json
+``` 
 <p align="center">
 <img src="https://i.imgur.com/nnWcyWE.png" height="80%" width="80%" alt="Disk Sanitization Step"/>
 </p>
@@ -85,8 +94,9 @@ Front end dependencies managed via npm are stored in the package.json file. Let�
 <br />
 
 You will notice we need to install the npm packages available in the package.json file using the npm install command before running the scan: <br/>
-- npm install<br/>
- 
+```
+npm install
+```
 <p align="center">
 <img src="https://i.imgur.com/4pcKaNa.png" height="80%" width="80%" alt="Disk Sanitization Step"/>
 </p>
@@ -95,8 +105,9 @@ You will notice we need to install the npm packages available in the package.jso
 <br />
 
 Let’s find if we are using any vulnerable libraries: <br/>
-- retire --outputformat json --outputpath retire_output.json<br/>
- 
+```
+retire --outputformat json --outputpath retire_output.json
+``` 
 <p align="center">
 <img src="https://i.imgur.com/iT6LNpJ.png" height="80%" width="80%" alt="Disk Sanitization Step"/>
 </p>
@@ -105,8 +116,9 @@ Let’s find if we are using any vulnerable libraries: <br/>
 <br />
 
 Once done, you can use the cat command to see the RetireJS output with the help of jq command: <br/>
-- cat retire_output.json | jq<br/>
- 
+```
+- cat retire_output.json | jq
+``` 
 <p align="center">
 <img src="https://i.imgur.com/zosDHei.png" height="80%" width="80%" alt="Disk Sanitization Step"/>
 </p>
@@ -115,8 +127,9 @@ Once done, you can use the cat command to see the RetireJS output with the help 
 <br />
 
 Configure retirejs such that it only throws non zero exit code when high severity issues are present in the results: <br/>
-- retire --severity high --outputformat json --outputpath retire_output.json<br/>
- 
+```
+retire --severity high --outputformat json --outputpath retire_output.json
+``` 
 <p align="center">
 <img src="https://i.imgur.com/TmXfFou.png" height="80%" width="80%" alt="Disk Sanitization Step"/>
 </p>
@@ -126,7 +139,7 @@ Configure retirejs such that it only throws non zero exit code when high severit
 
 Mark all high severity issues as False Positive and save the output in JSON format at location /webapp/retire_output.json: <br/>
 ```
-  - cat >/webapp/.retireignore.json<<EOF
+cat >/webapp/.retireignore.json<<EOF
 [
     {
         "component": "jquery",
@@ -178,8 +191,9 @@ EOF
 <br />
 
 Run retirejs a second time: <br/>
-- retire --severity high --outputformat json --outputpath retire_output.json<br/>
- 
+```
+retire --severity high --outputformat json --outputpath retire_output.json
+``` 
 <p align="center">
 <img src="https://i.imgur.com/3PmgSwm.png" height="80%" width="80%" alt="Disk Sanitization Step"/>
 </p>
